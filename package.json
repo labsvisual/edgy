@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "gulp",
-    "test": "npm test"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
