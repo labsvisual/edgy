@@ -11,7 +11,9 @@ test( 'it should expose the default Edgy class', t => {
 
 test( 'it should create a new object properly', t => {
 
-    const edgy = new Edgy();
+    const edgy = new Edgy(
+        { url: 'https://test.com', resource: 'user' }
+    );
 
     t.is( typeof edgy, 'object' );
     t.is( edgy.__proto__.constructor.name, 'Edgy' );
@@ -19,37 +21,47 @@ test( 'it should create a new object properly', t => {
 
 } );
 
-test( 'throws error on no resource', t => {
-    
+test( 'throws an error on no URL', t => {
+
     t.throws( () => {
         const edgy = new Edgy( {
-            url: 'https://test.com/api'
+            resource: 'name'
         } )
-    }, Errors.InvalidResourceError );
+    }, Errors.InvalidUrlError );
 
 } );
 
-test( 'getResourceUrl(): outputs the correct complied paths', t => {
+test( 'throws an error on invalid URL', t => {
+
+    t.throws( () => {
+        const edgy = new Edgy( {
+            url: 'ht:/go.co',
+            resource: 'name'
+        } )
+    }, Errors.InvalidUrlError );
+
+} );
+
+test( 'getApiPath(): outputs the correct complied paths', t => {
 
     let edgy = new Edgy( {
         url: 'https://test.com/api',
-        resource: 'user',
         versioning: {
-            prefix: 'v',
             version: '1'
         }
     } );
 
-    t.is( edgy.getResourceUrl(), 'https://test.com/api/v1/user' );
+    t.is( edgy.getApiPath(), 'https://test.com/api/v1' );
 
     edgy = new Edgy( {
         url: 'https://test.com/api',
         resource: 'user',
         versioning: {
+            prefix: 'n',
             version: '1'
         }
     } );
 
-    t.is( edgy.getResourceUrl(), 'https://test.com/api/1/user' );
+    t.is( edgy.getApiPath(), 'https://test.com/api/n1' );
 
 } );
