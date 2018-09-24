@@ -1,3 +1,6 @@
+import Edgy from './Edgy';
+import Errors from './errors';
+
 ( ( root, factory ) => {
 
     if ( typeof module === 'object' && module.exports ) {
@@ -6,8 +9,9 @@
         root.Edgy = factory();
     }
 
-} )( window, () => {
-
-
-    return {};
+} )( this || {}, () => {
+    return {
+        Edgy,
+        Errors
+    };
 } );
