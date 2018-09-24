@@ -54,6 +54,7 @@ gulp.task( 'webpack', gulp.series( 'clean', ( done ) => {
 gulp.task( 'watch', () => {
 
     gulp.watch( paths.source, gulp.series( 'webpack' ) );
+    gulp.watch( paths.tests, gulp.series( 'test' ) );
 
 } );
 
