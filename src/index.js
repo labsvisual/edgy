@@ -1,5 +1,5 @@
 import Edgy from './Edgy';
-import Errors from './errors';
+import * as Errors from './Errors';
 
 ( ( root, factory ) => {
 
@@ -9,7 +9,7 @@ import Errors from './errors';
         root.Edgy = factory();
     }
 
-} )( this || {}, () => {
+} )( typeof window === 'undefined' ? {} : window, () => {
     return {
         Edgy,
         Errors
