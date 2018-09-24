@@ -1,0 +1,52 @@
+{
+  "name": "edgy",
+  "version": "1.0.0",
+  "description": "A simple RESTful API adapter based on resources.",
+  "main": "index.js",
+  "scripts": {
+    "watch": "gulp",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/labsvisual/edgy.git"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "js",
+    "nodejs",
+    "adapter",
+    "react",
+    "angular",
+    "ng",
+    "restful",
+    "async",
+    "promises"
+  ],
+  "author": "Shreyansh Pandey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/labsvisual/edgy/issues"
+  },
+  "homepage": "https://github.com/labsvisual/edgy#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "ava": "^0.25.0",
+    "babel-loader": "^8.0.2",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-ava": "^0.19.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-util": "^3.0.8",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.19.1"
+  }
+}
