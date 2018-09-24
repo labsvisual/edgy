@@ -2,7 +2,7 @@
     "name": "edgy",
     "version": "1.0.0",
     "description": "A simple RESTful API adapter based on resources.",
-    "main": "index.js",
+    "main": "lib/index.js",
     "scripts": {
         "watch": "gulp",
         "test": "gulp test"

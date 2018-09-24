@@ -1,5 +1,5 @@
 import test from 'ava';
-import { Edgy, Errors } from '../src';
+import { Edgy, Errors } from '../lib';
 
 const getType = o => Object.prototype.toString.call( o );
 

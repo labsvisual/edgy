@@ -1,5 +1,5 @@
 import test from 'ava';
-import { Errors } from '../src';
+import { Errors } from '../lib';
 
 test( 'should contain all errors', t => {
 
