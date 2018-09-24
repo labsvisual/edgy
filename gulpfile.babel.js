@@ -12,7 +12,7 @@ import utils from 'gulp-util';
 import info from './package.json';
 
 const paths = {
-    source: './src/**/*.js',
+    source: './lib/**/*.js',
     destination: './build',
     tests: './tests/**/*.js',
 };
