@@ -58,4 +58,4 @@ gulp.task( 'watch', () => {
 
 } );
 
-gulp.task( 'default', gulp.series( 'watch', 'webpack' ) );
+gulp.task( 'default', gulp.series( 'watch' ) );
