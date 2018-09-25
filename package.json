@@ -6,7 +6,9 @@
     "scripts": {
         "watch": "gulp",
         "test": "gulp test",
-        "test:watch": "ava --watch --verbose"
+        "test:watch": "ava --watch --verbose",
+        "start:server": "node ./server/index.js &",
+        "stop:server": "kill $(lsof -i :3345 | awk 'FNR == 2 { print $2 }')"
     },
     "repository": {
         "type": "git",
@@ -48,6 +50,9 @@
         "gulp-sourcemaps": "^2.6.4",
         "gulp-uglify": "^3.0.1",
         "gulp-util": "^3.0.8",
+        "hapi": "^17.6.0",
+        "hapi-auth-jwt2": "^8.1.0",
+        "jsonwebtoken": "^8.3.0",
         "uglifyjs-webpack-plugin": "^2.0.1",
         "webpack": "^4.19.1"
     },
