@@ -15,4 +15,7 @@ test( 'should contain all errors', t => {
     t.is( typeof Errors.NoConfigurationOptionsError, 'function' );
     t.truthy( Errors.NoConfigurationOptionsError );
 
+    t.is( typeof Errors.InvalidHttpVerbError, 'function' );
+    t.truthy( Errors.InvalidHttpVerbError );
+
 } );
