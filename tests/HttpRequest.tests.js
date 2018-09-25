@@ -68,7 +68,11 @@ verbs.forEach( verb => {
             const r = getReq( verb.verb );
             const data = await r.makeRequest( verb.data );
             if ( verb.data ) {
-                t.deepEqual( JSON.parse( data ), verb.data );
+                t.deepEqual( JSON.parse( data ), {
+                    payload: {
+                        ...verb.data
+                    }
+                } );
             } else {
                 t.is( data, 'Hello World!' );
             }
@@ -87,7 +91,11 @@ verbs.forEach( verb => {
             const r = getReq( verb.verb, true );
             const data = await r.makeRequest( verb.data );
             if ( verb.data ) {
-                t.deepEqual( JSON.parse( data ), verb.data );
+                t.deepEqual( JSON.parse( data ), {
+                    payload: {
+                        ...verb.data
+                    }
+                } );
             } else {
                 t.is( data, 'Hello World!' );
             }
@@ -110,7 +118,11 @@ verbs.forEach( verb => {
                     const r = getReq( verb.verb, false, ct );
                     const data = await r.makeRequest( verb.data );
                     if ( verb.data ) {
-                        t.deepEqual( JSON.parse( data ), verb.data );
+                        t.deepEqual( JSON.parse( data ), {
+                            payload: {
+                                ...verb.data
+                            }
+                        } );
                     } else {
                         t.is( data, 'Hello World!' );
                     }
@@ -129,7 +141,11 @@ verbs.forEach( verb => {
                     const r = getReq( verb.verb, true, ct );
                     const data = await r.makeRequest( verb.data );
                     if ( verb.data ) {
-                        t.deepEqual( JSON.parse( data ), verb.data );
+                        t.deepEqual( JSON.parse( data ), {
+                            payload: {
+                                ...verb.data
+                            }
+                        } );
                     } else {
                         t.is( data, 'Hello World!' );
                     }
