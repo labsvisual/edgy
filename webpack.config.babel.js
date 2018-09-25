@@ -6,7 +6,7 @@ const config = {
 
     mode: process.env.NODE_ENV || 'development',
     devtool: process.env.NODE_ENV === 'production' ? 'none' : 'inline-cheap-module-source-map',
-    entry: path.join( __dirname, './lib/index.js' ),
+    entry: [ '@babel/polyfill', path.join( __dirname, './lib/index.js' ) ],
     output: {
         path: path.join( __dirname, 'build' ),
         filename: `edgy-build-${ info.version }-browser.js`
