@@ -5,7 +5,8 @@
     "main": "lib/index.js",
     "scripts": {
         "watch": "gulp",
-        "test": "gulp test"
+        "test": "gulp test",
+        "test:watch": "ava --watch --verbose"
     },
     "repository": {
         "type": "git",
@@ -32,6 +33,7 @@
     "homepage": "https://github.com/labsvisual/edgy#readme",
     "devDependencies": {
         "@babel/core": "^7.1.0",
+        "@babel/polyfill": "^7.0.0",
         "@babel/preset-env": "^7.1.0",
         "@babel/register": "^7.0.0",
         "ava": "1.0.0-beta.8",
@@ -53,11 +55,17 @@
         "failFast": false,
         "babel": {
             "testOptions": {
-                "babelrc": true
+                "babelrc": false
             }
         },
         "require": [
-            "@babel/register"
+            "./setup.js"
+        ],
+        "files": [
+            "./tests/**/*.js"
+        ],
+        "sources": [
+            "./lib/**/*.js"
         ]
     }
 }
