@@ -7,7 +7,7 @@
         "watch": "gulp",
         "test": "gulp test",
         "test:watch": "ava --watch --verbose",
-        "test:browser": "mocha-phantomjs ./tests/browser/index.html -p ./node_modules/.bin/phantom",
+        "test:browser": "mocha-phantomjs ./tests/browser/index.html",
         "start:server": "node ./server/index.js &",
         "stop:server": "kill $(lsof -i :3345 | awk 'FNR == 2 { print $2 }')",
         "build": "gulp webpack"
