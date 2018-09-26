@@ -4,7 +4,6 @@ node_js:
 before_script:
     - npm i -g gulp-cli
     - npm run start:server
-    # - ln -s $(which phantomjs) ./node_modules/.bin/phantom
 after_script:
     - npm run stop:server
 script:
