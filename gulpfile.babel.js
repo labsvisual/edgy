@@ -14,7 +14,7 @@ import info from './package.json';
 const paths = {
     source: './lib/**/*.js',
     destination: './build',
-    tests: './tests/**/*.js',
+    tests: './tests/node/**/*.js',
 };
 
 gulp.task( 'test', () => {
@@ -27,9 +27,9 @@ gulp.task( 'test', () => {
 
 } );
 
-gulp.task( 'clean', gulp.series( 'test' ,() => {
+gulp.task( 'clean', () => {
     return del( [ paths.destination ] );
-} ) );
+} );
 
 gulp.task( 'webpack', gulp.series( 'clean', ( done ) => {
 
