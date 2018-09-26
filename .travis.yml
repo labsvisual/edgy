@@ -4,9 +4,13 @@ node_js:
 before_script:
     - npm i -g gulp-cli
     - npm run start:server
+    - ln -s $(which phantomjs) ./node_modules/.bin/phantom
 after_script:
     - npm run stop:server
-script: npm test
+script:
+    - npm test
+    - npm webpack
+    - npm run tests:browser
 cache:
     directories:
         - "node_modules"
