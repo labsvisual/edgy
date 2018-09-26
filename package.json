@@ -7,8 +7,10 @@
         "watch": "gulp",
         "test": "gulp test",
         "test:watch": "ava --watch --verbose",
+        "test:browser": "mocha-phantomjs ./tests/browser/index.html -p ./node_modules/.bin/phantom",
         "start:server": "node ./server/index.js &",
-        "stop:server": "kill $(lsof -i :3345 | awk 'FNR == 2 { print $2 }')"
+        "stop:server": "kill $(lsof -i :3345 | awk 'FNR == 2 { print $2 }')",
+        "build": "gulp webpack"
     },
     "repository": {
         "type": "git",
@@ -53,6 +55,7 @@
         "hapi": "^17.6.0",
         "hapi-auth-jwt2": "^8.1.0",
         "jsonwebtoken": "^8.3.0",
+        "mocha-phantomjs": "^4.1.0",
         "uglifyjs-webpack-plugin": "^2.0.1",
         "webpack": "^4.19.1"
     },
@@ -67,7 +70,7 @@
             "./setup.js"
         ],
         "files": [
-            "./tests/**/*.js"
+            "./tests/node/**/*.js"
         ],
         "sources": [
             "./lib/**/*.js"
