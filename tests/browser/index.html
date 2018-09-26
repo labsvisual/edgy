@@ -13,10 +13,10 @@
   <script>
     mocha.setup('bdd');
     mocha.reporter('html');
-    var expect = chai.expect();
+    var expect = chai.expect;
   </script>
   <script src="../../build/edgy-build-1.0.0-browser.js"></script>
-  <script src="HttpRequest.tests.js"></script>
+  <script src="Edgy.tests.js"></script>
   <script>
     mocha.checkLeaks();
     if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
