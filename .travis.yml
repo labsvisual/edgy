@@ -9,7 +9,7 @@ after_script:
     - npm run stop:server
 script:
     - npm test
-    - npm gulp webpack
+    - npm run gulp webpack
     - npm run test:browser
 cache:
     directories:
