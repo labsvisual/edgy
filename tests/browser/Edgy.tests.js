@@ -134,3 +134,173 @@ describe( '#Edgy', function() {
     } );
 
 } );
+
+describe( '#HttpRequest', function() {
+
+    var combineAtKey = function( obj, keyName ) {
+
+        var retVal = {};
+        retVal[ keyName ] = obj;
+
+        return retVal;
+
+    };
+
+    var getReq = function( _method, _protect, _ct ) {
+
+        var protect = _protect || false;
+        var ct = _ct || 'application/json; charset=utf8';
+
+        if ( ct.indexOf( 'multipart' ) > -1 ) {
+            ct += '; charset=utf8; boundary=__EDGY_FORM__';
+        }
+
+        var dataObj = {
+            http: {
+                url: 'http://127.0.0.1:3345/api/v1/ping' + ( protect ? '/protected' : '' ),
+                method: _method,
+            },
+            headers: {
+                'content-type': ct
+            }
+        };
+
+        if ( protect ) {
+            dataObj.headers[ 'Authorization' ] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InByaW1hcnkiLCJpYXQiOjE1Mzc5MDk0MTV9.j7OJVdDjQcrBsT9MKUBTthxTzOC3WHsPhq2P7ub9iYI';
+        }
+
+        return new Edgy.HttpRequest( dataObj );
+    };
+
+    var verbs = [
+
+        {
+            verb: 'GET',
+        },
+        {
+            verb: 'POST',
+            data: {
+                foo: 'bar'
+            }
+        },
+        {
+            verb: 'PUT',
+            data: {
+                foo: 'bar'
+            }
+        },
+        {
+            verb: 'DELETE'
+        }
+
+    ];
+
+
+    it( 'should be of correct type', function() {
+
+        expect( Edgy.HttpRequest ).to.be.a( 'function' );
+        var req = getReq( 'GET' )
+
+        expect( req ).to.be.an( 'object' );
+        expect( req.__proto__.constructor.name ).to.equal( 'HttpRequest' );
+        expect( req instanceof Edgy.HttpRequest ).to.equal( true );
+
+    } );
+
+    verbs.forEach( function( verb ) {
+
+        it( 'should make request <' + verb.verb + '>', function( done ) {
+
+            var r = getReq( verb.verb );
+            r.makeRequest( verb.data ).then( function( data ) {
+
+                if ( verb.data ) {
+                    expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
+                } else {
+                    expect( data ).to.equal( 'Hello World!' );
+                }
+
+                done();
+
+            } ).catch( function( ex ) {
+
+                done( ex );
+
+            } ) ;
+
+        } );
+
+        it( 'should make request <' + verb.verb + '/Protected>', function( done ) {
+
+            var r = getReq( verb.verb, true );
+            r.makeRequest( verb.data ).then( function( data ) {
+
+                if ( verb.data ) {
+                    expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
+                } else {
+                    expect( data ).to.equal( 'Hello World!' );
+                }
+
+                done();
+
+            } ).catch( function( ex ) {
+
+                done( ex );
+
+            } ) ;
+
+        } );
+
+        if ( verb.verb === 'POST' || verb.verb === 'PUT' ) {
+
+            [ 'application/x-www-form-urlencoded', 'multipart/form-data' ].forEach( function( ct ) {
+
+                it( 'should make request <' + verb.verb + '/' + ct + '>', function( done ) {
+
+                    var r = getReq( verb.verb, false, ct );
+                    r.makeRequest( verb.data ).then( function( data ) {
+
+                        if ( verb.data ) {
+                            expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
+                        } else {
+                            expect( data ).to.equal( 'Hello World!' );
+                        }
+
+                        done();
+
+                    } ).catch( function( ex ) {
+
+                        done( ex );
+
+                    } ) ;
+
+                } );
+
+                it( 'should make request <' + verb.verb + '/' + ct + '/Protected>', function( done ) {
+
+                    var r = getReq( verb.verb, true, ct );
+                    r.makeRequest( verb.data ).then( function( data ) {
+
+                        if ( verb.data ) {
+                            expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
+                        } else {
+                            expect( data ).to.equal( 'Hello World!' );
+                        }
+
+                        done();
+
+                    } ).catch( function( ex ) {
+
+                        done( ex );
+
+                    } ) ;
+
+                } );
+
+            } );
+
+        }
+
+    } );
+
+} );
