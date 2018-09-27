@@ -86,6 +86,20 @@ test( 'should throw an error on invalid initialization <InvalidHttpVerbError>', 
 
 } );
 
+test ( 'should throw an error when invalid option keys are passed', t => {
+
+    t.throws( () => {
+
+        const res = new Resource( {
+            resource: 'test',
+            method: 'GET',
+            test: 'new'
+        } );
+
+    }, Errors.InvalidAdapterConfigurationError );
+
+} );
+
 test( 'should build the correct endpoint', t => {
 
     const res = new Resource( {
@@ -156,5 +170,95 @@ test( 'should build the correct endpoint with multiple params', t => {
             lastName: 'Bar'
         }
     } ), 'https://test.com/api/v1/user/Foo/Bar' );
+
+} );
+
+test( 'should build the correct endpoint with one param and one qs', t => {
+
+    const res = new Resource( {
+        resource: 'user',
+        method: 'GET',
+        apiPath: 'https://test.com/api/v1',
+        subUri: '/{id}'
+    } );
+
+    t.is( res._constructRequestUrl( {
+        params: {
+            id: 'testId'
+        },
+        query: {
+            test: 'name'
+        }
+    } ), 'https://test.com/api/v1/user/testId?test=name' );
+
+} );
+
+test( 'should build the correct endpoint with one param and multiple qs', t => {
+
+    const res = new Resource( {
+        resource: 'user',
+        method: 'GET',
+        apiPath: 'https://test.com/api/v1',
+        subUri: '/{id}',
+    } );
+
+    t.is( res._constructRequestUrl( {
+        params: {
+            id: 'testId'
+        },
+        query: {
+            test: 'name',
+            key: 'value'
+        }
+    } ), 'https://test.com/api/v1/user/testId?test=name&key=value' );
+
+} );
+
+test( 'should make all requests', async ( t ) => {
+
+    let res = new Resource( {
+        resource: 'ping',
+        method: 'GET',
+        apiPath: 'http://localhost:3345/api/v1',
+        subUri: '/{pathName}',
+        appendTrailingSlash: false
+    } );
+
+    try {
+
+        const data = await res.makeRequest( {
+            params: {
+                pathName: ''
+            }
+        } );
+
+        t.is( data, 'Hello World!' );
+
+    } catch ( ex ) {
+        console.log( ex.toString() );
+        t.fail();
+    }
+
+    try {
+
+        const data = await res.makeRequest( {
+            query: {
+                key1: 'val1'
+            },
+            params: {
+                pathName: ''
+            }
+        } );
+
+        t.deepEqual( JSON.parse( data ), {
+            query: {
+                key1: 'val1'
+            }
+        } );
+
+    } catch ( ex ) {
+        console.log( ex.toString() );
+        t.fail();
+    }
 
 } );

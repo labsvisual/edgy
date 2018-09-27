@@ -9,10 +9,7 @@ const getReq = ( method, protect = false, ct = 'application/json; charset=utf8' 
     }
 
     const dataObj = {
-        http: {
-            url: `http://127.0.0.1:3345/api/v1/ping${ protect ? '/protected' : '' }`,
-            method,
-        },
+        method,
         headers: {
             'content-type': ct
         }
@@ -59,6 +56,8 @@ test( 'should be of correct type', t => {
 
 } );
 
+const url = 'http://127.0.0.1:3345/api/v1/ping';
+
 verbs.forEach( verb => {
 
     test( `should make request <${ verb.verb }>`, async ( t ) => {
@@ -66,7 +65,7 @@ verbs.forEach( verb => {
         try {
 
             const r = getReq( verb.verb );
-            const data = await r.makeRequest( verb.data );
+            const data = await r.makeRequest( url, verb.data );
             if ( verb.data ) {
                 t.deepEqual( JSON.parse( data ), {
                     payload: {
@@ -89,7 +88,7 @@ verbs.forEach( verb => {
         try {
 
             const r = getReq( verb.verb, true );
-            const data = await r.makeRequest( verb.data );
+            const data = await r.makeRequest( url + '/protected', verb.data );
             if ( verb.data ) {
                 t.deepEqual( JSON.parse( data ), {
                     payload: {
@@ -116,7 +115,7 @@ verbs.forEach( verb => {
                 try {
 
                     const r = getReq( verb.verb, false, ct );
-                    const data = await r.makeRequest( verb.data );
+                    const data = await r.makeRequest( url, verb.data );
                     if ( verb.data ) {
                         t.deepEqual( JSON.parse( data ), {
                             payload: {
@@ -139,7 +138,7 @@ verbs.forEach( verb => {
                 try {
 
                     const r = getReq( verb.verb, true, ct );
-                    const data = await r.makeRequest( verb.data );
+                    const data = await r.makeRequest( url + '/protected', verb.data );
                     if ( verb.data ) {
                         t.deepEqual( JSON.parse( data ), {
                             payload: {
