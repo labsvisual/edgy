@@ -12,7 +12,7 @@
         "stop:server": "kill $(lsof -i :3345 | awk 'FNR == 2 { print $2 }')",
         "build": "gulp webpack",
         "browser:watch": "nodemon --exec npm run test:browser",
-        "build:watch": "nodemon --ignore tests/* --exec npm run build"
+        "build:watch": "nodemon --ignore build/* --exec npm run build"
     },
     "repository": {
         "type": "git",
