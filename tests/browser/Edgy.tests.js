@@ -156,10 +156,7 @@ describe( '#HttpRequest', function() {
         }
 
         var dataObj = {
-            http: {
-                url: 'http://127.0.0.1:3345/api/v1/ping' + ( protect ? '/protected' : '' ),
-                method: _method,
-            },
+            method: _method,
             headers: {
                 'content-type': ct
             }
@@ -171,6 +168,8 @@ describe( '#HttpRequest', function() {
 
         return new Edgy.HttpRequest( dataObj );
     };
+
+    var url = 'http://127.0.0.1:3345/api/v1/ping';
 
     var verbs = [
 
@@ -212,7 +211,7 @@ describe( '#HttpRequest', function() {
         it( 'should make request <' + verb.verb + '>', function( done ) {
 
             var r = getReq( verb.verb );
-            r.makeRequest( verb.data ).then( function( data ) {
+            r.makeRequest( url, verb.data ).then( function( data ) {
 
                 if ( verb.data ) {
                     expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
@@ -233,7 +232,7 @@ describe( '#HttpRequest', function() {
         it( 'should make request <' + verb.verb + '/Protected>', function( done ) {
 
             var r = getReq( verb.verb, true );
-            r.makeRequest( verb.data ).then( function( data ) {
+            r.makeRequest( url + '/protected', verb.data ).then( function( data ) {
 
                 if ( verb.data ) {
                     expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
@@ -258,7 +257,7 @@ describe( '#HttpRequest', function() {
                 it( 'should make request <' + verb.verb + '/' + ct + '>', function( done ) {
 
                     var r = getReq( verb.verb, false, ct );
-                    r.makeRequest( verb.data ).then( function( data ) {
+                    r.makeRequest( url, verb.data ).then( function( data ) {
 
                         if ( verb.data ) {
                             expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
@@ -279,7 +278,7 @@ describe( '#HttpRequest', function() {
                 it( 'should make request <' + verb.verb + '/' + ct + '/Protected>', function( done ) {
 
                     var r = getReq( verb.verb, true, ct );
-                    r.makeRequest( verb.data ).then( function( data ) {
+                    r.makeRequest( url + '/protected', verb.data ).then( function( data ) {
 
                         if ( verb.data ) {
                             expect( JSON.parse( data ) ).to.deep.equal( combineAtKey( verb.data, 'payload' ) );
