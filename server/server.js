@@ -6,7 +6,13 @@ import routes from './routes';
 const validContexts = [ 'primary' ];
 
 const server = Hapi.Server( {
-    port: 3345
+    port: 3345,
+    routes: {
+        cors: true
+    },
+    debug: {
+        request: ['*']
+    }
 } );
 
 const initServer = async () => {
