@@ -1,19 +1,22 @@
-describe( '#Edgy.Object', function() {
+describe( '#window.Edgy', function() {
     it( 'exposes the Edgy object', function() {
 
         expect( Edgy ).to.be.a( 'object' );
+        expect( window.Edgy ).to.be.a( 'object' );
 
     } );
 
     it( 'exposes the Edgy constructor function', function() {
 
         expect( Edgy.Edgy ).to.be.a( 'function' );
+        expect( window.Edgy.Edgy ).to.be.a( 'function' );
 
     } );
 
     it( 'exposes the Edgy errors module', function() {
 
         expect( Edgy.Errors ).to.be.a( 'module' );
+        expect( window.Edgy.Errors ).to.be.a( 'module' );
 
     } );
 
