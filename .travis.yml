@@ -1,6 +1,11 @@
+dist: trusty
 language: node_js
 node_js:
+    - "10"
     - "8"
+sudo: required
+addons:
+  chrome: stable
 before_script:
     - npm i -g gulp-cli
     - npm run start:server
