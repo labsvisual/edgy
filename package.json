@@ -7,11 +7,12 @@
         "watch": "gulp",
         "test": "gulp test",
         "test:watch": "ava --watch --verbose",
-        "test:browser": "mocha-phantomjs ./tests/browser/index.html",
-        "test:browser-local": "npm run test:browser -- -R list -p /usr/local/bin/phantomjs",
+        "test:browser": "mocha-chrome ./tests/browser/index.html",
         "start:server": "node ./server/index.js &",
         "stop:server": "kill $(lsof -i :3345 | awk 'FNR == 2 { print $2 }')",
-        "build": "gulp webpack"
+        "build": "gulp webpack",
+        "browser:watch": "nodemon --exec npm run test:browser",
+        "build:watch": "nodemon --ignore tests/* --exec npm run build"
     },
     "repository": {
         "type": "git",
@@ -56,7 +57,7 @@
         "hapi": "^17.6.0",
         "hapi-auth-jwt2": "^8.1.0",
         "jsonwebtoken": "^8.3.0",
-        "mocha-phantomjs": "^4.1.0",
+        "mocha-chrome": "^1.1.0",
         "uglifyjs-webpack-plugin": "^2.0.1",
         "webpack": "^4.19.1"
     },
